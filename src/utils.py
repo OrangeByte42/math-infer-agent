@@ -1,7 +1,9 @@
+from typing import Tuple
+
 import torch
 
 
-def show_devices_info():
+def show_devices_info() -> None:
     print(f"--- GPU Availability ---")
     if torch.cuda.is_available():
         print(f"Number of GPUs: {torch.cuda.device_count()}")
@@ -24,12 +26,9 @@ def show_devices_info():
     print(f"--- Supported Computing Precision ---")
     if torch.cuda.is_bf16_supported(): print("BF16 is supported.")
 
-def system_prompt(prompt: str) -> str:
-    return f"<|start_header_id|>system<|end_header_id|>{prompt}<|eot_id|>"
-
-def user_prompt(prompt: str) -> str:
-    return f"<|start_header_id|>user<|end_header_id|>{prompt}<|eot_id|>"
-
-def assistant_todo_prompt() -> str:
-    return f"<|start_header_id|>assistant<|end_header_id|>"
+def calculate_duration_time(start_ts: float, end_ts: float) -> Tuple[int, int]:
+    duration: int = int(end_ts - start_ts)
+    minutes: int = duration // 60
+    seconds: int = duration % 60
+    return minutes, seconds
 
